@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper/widgets/custom_button.dart';
 import 'package:wallpaper/utils/router.dart';
-import 'package:wallpaper/screens/home_screen.dart';
+import 'package:wallpaper/screens/main_activity.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _AuthPageState extends State<AuthPage> {
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: customButton(text: 'Continue with Google', onTap: (){
-            nextPage(const HomeScreen(), context);
+            nextPageReplace(const MainActivity(), context);
           }, bgColor: Colors.black54, textColor: Colors.white),
         ),
       ),
