@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper/screens/bottom_nav_pages/wallpaper_home/home_page.dart';
 import 'package:wallpaper/screens/bottom_nav_pages/download_page.dart';
+import 'package:wallpaper/provider/auth_provider.dart';
+import 'package:wallpaper/utils/router.dart';
+import 'package:wallpaper/screens/Authentication/auth_page.dart';
 
 
 class MainActivity extends StatefulWidget {
@@ -26,8 +29,12 @@ class _MainActivityState extends State<MainActivity> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('WallPaper App'),
-        actions: const [
-          IconButton(onPressed: null, icon: Icon(Icons.exit_to_app))
+        actions: [
+          IconButton(onPressed: (){
+            AuthProvider().signOut().then((value) {
+              nextPageReplace(const AuthPage(), context);
+            });
+          }, icon: const Icon(Icons.exit_to_app))
         ],
       ),
       body: pages[currentIndex],
