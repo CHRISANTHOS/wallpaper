@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wallpaper/widgets/custom_button.dart';
+import 'package:wallpaper/utils/pick_file.dart';
 
 class UploadPage extends StatefulWidget {
   @override
@@ -8,6 +11,7 @@ class UploadPage extends StatefulWidget {
 
 class _UploadPageState extends State<UploadPage> {
   final TextEditingController _controller = TextEditingController();
+  String imagePath = '';
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +40,20 @@ class _UploadPageState extends State<UploadPage> {
                     height: 20,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      pickImage().then((value) {
+                        setState(() {
+                          imagePath = value;
+                        });
+                      });
+                    },
                     child: const SizedBox(
                       height: 50,
                       width: 50,
                       child: Icon(Icons.camera),
                     ),
                   ),
+                  if(imagePath != '') Image.file(File(imagePath)),
                   customButton(
                       text: 'Upload',
                       onTap: () {},
