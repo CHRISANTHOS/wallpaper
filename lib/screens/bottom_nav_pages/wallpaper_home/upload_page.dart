@@ -1,8 +1,11 @@
 import 'dart:io';
-
+import 'package:provider/provider.dart';
+import 'package:wallpaper/provider/add_wallpaper_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:wallpaper/widgets/custom_button.dart';
 import 'package:wallpaper/utils/pick_file.dart';
+import 'package:wallpaper/utils/snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UploadPage extends StatefulWidget {
   @override
@@ -54,11 +57,28 @@ class _UploadPageState extends State<UploadPage> {
                     ),
                   ),
                   if(imagePath != '') Image.file(File(imagePath)),
-                  customButton(
-                      text: 'Upload',
-                      onTap: () {},
-                      bgColor: Colors.black54,
-                      textColor: Colors.white)
+                  Consumer<UploadWallpaper>(
+                    builder: (context, add, child) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        if(add.message != ''){
+                          showSnackBar(context, add.message);
+                          add.resetMessage();
+                        }
+                      });
+
+                      return customButton(
+                          text: 'Upload',
+                          onTap: add.loading ? null : () {
+                            if(imagePath != ''){
+                              add.addWallPaper(uid: FirebaseAuth.instance.currentUser?.uid, wallPaperImage: File(imagePath), price: _controller.text ?? '');
+                            }else{
+                              showSnackBar(context, 'Upload Image');
+                            }
+                          },
+                          bgColor: add.loading? Colors.grey : Colors.black54,
+                          textColor: Colors.white);
+                    }
+                  )
                 ],
               ),
             ),
