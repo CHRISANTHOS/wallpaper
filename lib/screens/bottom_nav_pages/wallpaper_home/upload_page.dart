@@ -67,10 +67,11 @@ class _UploadPageState extends State<UploadPage> {
                       });
 
                       return customButton(
-                          text: 'Upload',
-                          onTap: add.loading ? null : () {
+                          text: add.loading ? 'Uploading...' : 'Upload',
+                          onTap: add.loading ? null : ()async {
                             if(imagePath != ''){
-                              add.addWallPaper(uid: FirebaseAuth.instance.currentUser?.uid, wallPaperImage: File(imagePath), price: _controller.text ?? '');
+                              await add.addWallPaper(uid: FirebaseAuth.instance.currentUser?.uid, wallPaperImage: File(imagePath), price: _controller.text ?? '');
+                              Navigator.pop(context);
                             }else{
                               showSnackBar(context, 'Upload Image');
                             }

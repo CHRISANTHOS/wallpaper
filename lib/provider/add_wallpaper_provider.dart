@@ -19,7 +19,7 @@ class UploadWallpaper extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addWallPaper({File? wallPaperImage, String? uid, String? price}) async {
+  Future<void> addWallPaper({File? wallPaperImage, String? uid, String? price}) async {
     _loading = true;
     notifyListeners();
 
@@ -48,7 +48,7 @@ class UploadWallpaper extends ChangeNotifier {
       final data = {
         'price': price,
         'uid': uid,
-        'wallpaper image': wallPaperImage
+        'wallpaper_url': wallPaperImage.path
       };
 
       await _products.add(data);
