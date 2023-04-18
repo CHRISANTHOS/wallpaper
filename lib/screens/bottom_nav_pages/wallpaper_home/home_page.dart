@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:wallpaper/utils/router.dart';
@@ -38,9 +40,7 @@ class _WallPaperHomeState extends State<WallPaperHome> {
                       height: 250,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage(
-                              data[index].get('wallpaper_url').toString(),
-                            ),
+                            image: FileImage(File(data[index].get('wallpaper_url'))),
                             fit: BoxFit.cover),
                       ),
                       child: Center(

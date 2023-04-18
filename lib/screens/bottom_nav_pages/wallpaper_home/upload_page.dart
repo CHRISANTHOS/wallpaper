@@ -17,6 +17,13 @@ class _UploadPageState extends State<UploadPage> {
   String imagePath = '';
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(imagePath);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
