@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:wallpaper/utils/router.dart';
 import 'package:wallpaper/screens/bottom_nav_pages/wallpaper_home/upload_page.dart';
+import 'package:wallpaper/screens/bottom_nav_pages/wallpaper_home/view_wallpaper.dart';
 
 class WallPaperHome extends StatefulWidget {
   @override
@@ -36,22 +36,27 @@ class _WallPaperHomeState extends State<WallPaperHome> {
                   crossAxisSpacing: 5,
                   childAspectRatio: 0.5,
                   children: List.generate(data.length, (index) {
-                    return Container(
-                      height: 250,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: FileImage(File(data[index].get('wallpaper_url'))),
-                            fit: BoxFit.cover),
-                      ),
-                      child: Center(
-                        child: data[index].get('price') == ''
-                            ? null
-                            : CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  data[index].get('price'),
+                    return GestureDetector(
+                      onTap: (){
+                        nextPage(ViewWallpaper(data: data[index]), context);
+                      },
+                      child: Container(
+                        height: 250,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: FileImage(File(data[index].get('wallpaper_url'))),
+                              fit: BoxFit.cover),
+                        ),
+                        child: Center(
+                          child: data[index].get('price') == ''
+                              ? null
+                              : CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Text(
+                                    data[index].get('price'),
+                                  ),
                                 ),
-                              ),
+                        ),
                       ),
                     );
                   }),
