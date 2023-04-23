@@ -13,6 +13,35 @@ class ViewWallpaper extends StatefulWidget {
 }
 
 class _ViewWallpaperState extends State<ViewWallpaper> {
+  List<String> apply = ['Home Screen', 'LockScreen', 'Both'];
+
+  void showSheet(BuildContext context){
+    showModalBottomSheet(context: context, builder: (context){
+      return SizedBox(
+        height: 200,
+        child: Column(
+          children: [
+            const Text('Apply', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            ...List.generate(apply.length, (index) {
+              return Container(
+                width: MediaQuery.of(context).size.width * 50,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.only(bottom: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Text(apply[index], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+              );
+            })
+          ],
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +58,13 @@ class _ViewWallpaperState extends State<ViewWallpaper> {
             Positioned(
               bottom: 8,
               child: GestureDetector(
-                onTap: (){},
+                onTap: (){
+                  if(widget.data.get('price') == ''){
+                    showSheet(context);
+                  }else{
+
+                  }
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 50,
                   alignment: Alignment.center,
