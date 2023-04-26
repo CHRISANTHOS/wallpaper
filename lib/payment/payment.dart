@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:wallpaper/utils/snackbar.dart';
+import 'package:wallpaper/provider/purchased_wallpaper.dart';
 
 class Payment{
   String image;
@@ -51,7 +52,7 @@ class Payment{
       final String message = response.message;
 
       if(response.status == true){
-        showSnackBar(context, message);
+        PurchasedWallPaper().save(wallpaperImage: image);
       }else{
         showSnackBar(context, message);
       }
