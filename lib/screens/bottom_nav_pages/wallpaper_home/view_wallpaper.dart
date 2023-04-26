@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:wallpaper/payment/payment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +62,7 @@ class _ViewWallpaperState extends State<ViewWallpaper> {
                   if(widget.data.get('price') == ''){
                     showSheet(context);
                   }else{
-
+                    Payment(context: context, amount: widget.data.get('price'), image: widget.data.get('wallpaper_url')).chargeCardAndMakePayment();
                   }
                 },
                 child: Container(
