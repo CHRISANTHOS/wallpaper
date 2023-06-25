@@ -53,6 +53,7 @@ class Payment{
 
       if(response.status == true){
         PurchasedWallPaper().save(wallpaperImage: image);
+        showSnackBar(context, 'Purchased and saved to download');
       }else{
         showSnackBar(context, message);
       }
