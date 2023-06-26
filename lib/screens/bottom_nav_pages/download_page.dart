@@ -41,7 +41,7 @@ class _DownloadPageState extends State<DownloadPage> {
                   children: List.generate(data.length, (index) {
                     return GestureDetector(
                       onTap: (){
-                        nextPage(ViewWallpaper(data: data[index]), context);
+                        nextPage(ViewWallpaper(data: data[index], path: 'saved',), context);
                       },
                       child: Container(
                         height: 250,
